@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dumb Site 🎮 | Dumbest Site on Planet Earth by Hriday Kadam</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Cringiest Site to exist ever!">
+    <meta name="keywords" content="dumb games, Hriday Kadam, funny games, click war, type to win, web games, entertainment">
+    <meta name="author" content="Hriday Kadam">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="The Dumb Site">
+    <meta property="og:description" content="Collection of intentionally dumb games created by Hriday Kadam.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thedumbsite.com">
+    <meta property="og:image" content="[Your site image URL]">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Dumb Site">
+    <meta name="twitter:description" content="Cringiest Site to exist ever!">   
+    
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="theme-color" content="#6B46C1">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        @keyframes neonGlow {
+            0% { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0ff, 0 0 20px #0ff; }
+            100% { box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0ff, 0 0 40px #0ff; }
+        }
+
+        @keyframes floatingCard {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .retro-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .game-card {
+            transition: all 0.3s ease;
+            animation: floatingCard 3s ease-in-out infinite;
+            animation-delay: calc(var(--animation-order) * 0.1s);
+        }
+
+        .game-card:hover {
+            transform: scale(1.05) translateY(-15px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .neon-button {
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+            transition: all 0.3s ease;
+        }
+
+        .neon-button:hover {
+            animation: none;
+            box-shadow: 0 0 20px #fff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff;
+            transform: scale(1.05);
+        }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .score-popup {
+            animation: scoreFloat 0.5s ease-out forwards;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        @keyframes scoreFloat {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
+
+        .background-grid {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center center;
+        }
+
+        .game-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-container.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        body {
+            padding-bottom: 4rem;
+        }
+
+        .glow-yellow {
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+            animation: glowPulse 2s infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-600 to-blue-500 min-h-screen background-grid">
+    <!-- Particles Container -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-black/50 backdrop-blur-md border-b border-white/10">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center items-center py-4">
+                <button onclick="showGameHub()" 
+                        class="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white 
+                               hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105
+                               font-bold text-lg">
+                    🏠 Home
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Hub -->
+    <div id="gameHub" class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white mb-4 retro-font animate__animated animate__fadeIn">
+                THE DUMB SITE
+            </h1>
+            <div class="text-2xl text-red-400 animate-pulse retro-font">
+                ⚠️ BEWARE: Dumbest Site on Planet Earth ⚠️
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Click War -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="showGame('clickWar')" style="--animation-order: 1">
+                <div class="text-4xl mb-4">🖱️</div>
+                <h2 class="text-2xl font-bold mb-2">Click War</h2>
+                <p class="text-gray-600">Click as fast as you can to become the clicking champion!</p>
+            </div>
+
+            <!-- Type to Win -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="showGame('typeToWin')" style="--animation-order: 2">
+                <div class="text-4xl mb-4">⌨️</div>
+                <h2 class="text-2xl font-bold mb-2">Type to Win</h2>
+                <p class="text-gray-600">Test your typing speed with funny phrases!</p>
+            </div>
+
+            <!-- Make a Wish -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="showGame('wishMaker')" style="--animation-order: 3">
+                <div class="text-4xl mb-4">✨</div>
+                <h2 class="text-2xl font-bold mb-2">Make a Wish</h2>
+                <p class="text-gray-600">Click for instant wishes! Results may vary.</p>
+            </div>
+
+            <!-- Yes or No -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="showGame('decisionMaker')" style="--animation-order: 4">
+                <div class="text-4xl mb-4">🎲</div>
+                <h2 class="text-2xl font-bold mb-2">Yes or No?</h2>
+                <p class="text-gray-600">Let the universe decide your fate!</p>
+            </div>
+
+            <!-- Fake Game 1 - Free Gems -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="showGame('freeGems')" style="--animation-order: 5">
+                <div class="text-4xl mb-4">💎</div>
+                <h2 class="text-2xl font-bold mb-2">Free Gems Hack</h2>
+                <p class="text-gray-600">Get unlimited gems for any game! 100% working!</p>
+            </div>
+
+            <!-- Fake Game 2 - V-Bucks -->
+            <div class="game-card bg-white rounded-lg shadow-lg p-6 cursor-pointer" onclick="showGame('freeGrant')" style="--animation-order: 6">
+                <div class="text-4xl mb-4">💵</div>
+                <h2 class="text-2xl font-bold mb-2">$5000 Grant!</h2>
+                <p class="text-gray-600">FREE Government Money! No Questions Asked! OPEN NOW!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Click War Game -->
+    <div id="clickWar" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">Click War!</h2>
+                
+                <div class="flex justify-between mb-6">
+                    <div class="text-2xl text-white/80" id="timeLeft">Time: 10s</div>
+                    <div class="text-2xl text-white/80" id="score">Score: 0</div>
+                </div>
+
+                <div class="relative">
+                    <button id="clickWarStartButton" onclick="startClickWar()"
+                            class="w-full py-4 neon-button bg-gradient-to-r from-cyan-500 to-blue-500 
+                                   text-white rounded-xl retro-font text-xl">
+                        START GAME
+                    </button>
+
+                    <button id="clickWarButton" 
+                            class="hidden w-full py-16 neon-button bg-gradient-to-r from-green-500 to-emerald-500 
+                                   text-white rounded-xl retro-font text-2xl"
+                            onclick="handleClick(event)">
+                        CLICK ME!
+                    </button>
+                </div>
+
+                <div class="mt-8 bg-white/5 rounded-xl p-6">
+                    <h3 class="text-xl retro-font text-white mb-4">High Scores</h3>
+                    <ul id="highScores" class="space-y-2 text-white"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Type to Win -->
+    <div id="typeToWin" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">Type to Win!</h2>
+                <div id="typeGameContent" class="text-center">
+                    <div id="phraseDisplay" class="text-2xl text-white mb-4"></div>
+                    <input type="text" id="typeInput" 
+                        class="w-full p-4 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-white/40"
+                        placeholder="Type here...">
+                    <button onclick="startTypeGame()" id="typeStartButton"
+                        class="mt-4 w-full py-4 neon-button bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl retro-font">
+                        START TYPING
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dumb Test -->
+    <div id="dumbTest" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">Dumb Test</h2>
+                <div id="questionContainer" class="text-white text-xl mb-4"></div>
+                <div id="answerButtons" class="grid gap-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Make a Wish -->
+    <div id="wishMaker" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">Make a Wish</h2>
+                <button onclick="makeWish()" 
+                    class="w-full py-8 neon-button bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl retro-font text-2xl">
+                    ✨ Make a Wish ✨
+                </button>
+                <div id="wishResult" class="mt-8 text-white text-center text-xl"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yes or No -->
+    <div id="decisionMaker" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">Yes or No?</h2>
+                <input type="text" id="question" 
+                    class="w-full p-4 rounded-lg bg-white/10 text-white border border-white/20 mb-4"
+                    placeholder="Ask your question...">
+                <button onclick="getDecision()" 
+                    class="w-full py-4 neon-button bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl retro-font">
+                    Get Answer
+                </button>
+                <div id="answer" class="mt-8 text-4xl text-white text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fake Game 1 Container -->
+    <div id="freeGems" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">🤡 Gotcha!</h2>
+                
+                <div class="text-center mb-6">
+                    <img src="https://media.giphy.com/media/CAYVZA5NRb529kKQUc/giphy.gif" 
+                         alt="Gigachad" 
+                         class="mx-auto rounded-lg mb-6 w-64">
+                    
+                    <p class="text-2xl text-white mb-4">
+                        Did you really think you could get free gems? 
+                    </p>
+                    <p class="text-xl text-white/80 mb-6">
+                        Nothing is free in life except this reality check! 😎
+                    </p>
+                    
+                    <button onclick="showGameHub()" 
+                            class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl 
+                                   hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
+                        Back to Games (Like a Chad)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fake Game 2 Container -->
+    <div id="freeGrant" class="game-container container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-black/30 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                <h2 class="text-4xl retro-font text-center text-white mb-8">🤑 Nice Try!</h2>
+                
+                <div class="text-center mb-6">
+                    <img src="https://media.giphy.com/media/GRM7Z2s6AougoR3rvv/giphy.gif" 
+                         alt="Laughing" 
+                         class="mx-auto rounded-lg mb-6 w-64">
+                    
+                    <p class="text-2xl text-white mb-4">
+                        Looking for free money? Here's some free advice:
+                    </p>
+                    <p class="text-xl text-white/80 mb-6">
+                        If it sounds too good to be true, it probably is! 💸
+                    </p>
+                    
+                    <button onclick="showGameHub()" 
+                            class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl 
+                                   hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105">
+                        Back to Reality
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto text-center">
+            <p class="text-white/80">
+                Made with <span class="text-red-500 animate-pulse">❤️</span> by 
+                <a href="https://www.instagram.com/hrik.1111" 
+                   class="font-bold hover:text-purple-400 transition-colors duration-300"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Hriday Kadam
+                </a>
+                <span class="text-sm ml-2 glow-yellow">(For punching me click my name & see the magic)</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle Effect System
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            particle.style.width = `${Math.random() * 10 + 5}px`;
+            particle.style.height = particle.style.width;
+            
+            const hue = Math.random() * 360;
+            particle.style.background = `hsl(${hue}, 70%, 60%)`;
+            
+            document.body.appendChild(particle);
+
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 5 + 2;
+            const dx = Math.cos(angle) * velocity;
+            const dy = Math.sin(angle) * velocity;
+
+            let opacity = 1;
+            const animate = () => {
+                const currentLeft = parseFloat(particle.style.left);
+                const currentTop = parseFloat(particle.style.top);
+                
+                particle.style.left = `${currentLeft + dx}px`;
+                particle.style.top = `${currentTop + dy}px`;
+                opacity -= 0.02;
+                particle.style.opacity = opacity;
+
+                if (opacity > 0) {
+                    requestAnimationFrame(animate);
+                } else {
+                    particle.remove();
+                }
+            };
+
+            requestAnimationFrame(animate);
+        }
+
+        // Score Popup Effect
+        function createScorePopup(x, y, score) {
+            const popup = document.createElement('div');
+            popup.className = 'score-popup retro-font';
+            popup.textContent = `+${score}`;
+            popup.style.left = `${x}px`;
+            popup.style.top = `${y}px`;
+            popup.style.color = 'white';
+            document.body.appendChild(popup);
+
+            setTimeout(() => popup.remove(), 500);
+        }
+
+        // Navigation and Game Management
+        function showGameHub() {
+            document.querySelectorAll('.game-container').forEach(container => {
+                container.classList.remove('active');
+                container.style.display = 'none';
+            });
+            document.getElementById('gameHub').style.display = 'block';
+        }
+
+        function showGame(gameId) {
+            document.getElementById('gameHub').style.display = 'none';
+            document.querySelectorAll('.game-container').forEach(container => {
+                container.classList.remove('active');
+                container.style.display = 'none';
+            });
+            document.getElementById(gameId).classList.add('active');
+            document.getElementById(gameId).style.display = 'block';
+
+            // Reset game state when showing new game
+            resetGame(gameId);
+        }
+
+        function resetGame(gameId) {
+            switch(gameId) {
+                case 'clickWar':
+                    resetClickWar();
+                    break;
+                case 'typeToWin':
+                    resetTypeToWin();
+                    break;
+                case 'reactionTest':
+                    resetReactionTest();
+                    break;
+                case 'wishMaker':
+                    resetWishMaker();
+                    break;
+                case 'decisionMaker':
+                    resetDecisionMaker();
+                    break;
+            }
+        }
+
+        // Updated Click War Logic
+        let clickWarScore = 0;
+        let clickWarTimeLeft = 10;
+        let clickWarInterval;
+        let clickWarIsPlaying = false;
+
+        function startClickWar() {
+            clickWarScore = 0;
+            clickWarTimeLeft = 10;
+            clickWarIsPlaying = true;
+            
+            document.getElementById('clickWarStartButton').classList.add('hidden');
+            document.getElementById('clickWarButton').classList.remove('hidden');
+            
+            updateClickWarDisplay();
+            
+            clickWarInterval = setInterval(() => {
+                clickWarTimeLeft--;
+                updateClickWarDisplay();
+                
+                if (clickWarTimeLeft <= 0) {
+                    endClickWar();
+                }
+            }, 1000);
+        }
+
+        function handleClick(event) {
+            if (clickWarIsPlaying) {
+                clickWarScore++;
+                updateClickWarDisplay();
+                createParticles(event.clientX, event.clientY, 5);
+            }
+        }
+
+        function updateClickWarDisplay() {
+            document.getElementById('timeLeft').textContent = `Time: ${clickWarTimeLeft}s`;
+            document.getElementById('score').textContent = `Score: ${clickWarScore}`;
+        }
+
+        function endClickWar() {
+            clickWarIsPlaying = false;
+            clearInterval(clickWarInterval);
+            
+            document.getElementById('clickWarButton').classList.add('hidden');
+            document.getElementById('clickWarStartButton').classList.remove('hidden');
+            
+            // Update high scores
+            let highScores = JSON.parse(localStorage.getItem('clickWarHighScores') || '[]');
+            highScores.push(clickWarScore);
+            highScores.sort((a, b) => b - a);
+            highScores = highScores.slice(0, 5); // Keep top 5
+            localStorage.setItem('clickWarHighScores', JSON.stringify(highScores));
+            
+            updateClickWarHighScores();
+        }
+
+        function updateClickWarHighScores() {
+            const highScores = JSON.parse(localStorage.getItem('clickWarHighScores') || '[]');
+            const highScoresList = document.getElementById('highScores');
+            highScoresList.innerHTML = highScores
+                .map((score, index) => `<li class="text-xl">#${index + 1}: ${score} clicks</li>`)
+                .join('');
+        }
+
+        // Type to Win Game
+        const phrases = [
+            "The dumbest site you'll ever visit",
+            "Why are you still typing this?",
+            "This is not a typing test, it's a patience test",
+            "If you can read this, you're too smart",
+            "Congratulations, you're wasting time efficiently"
+        ];
+        let currentPhrase = '';
+        let typeGameStartTime;
+
+        function resetTypeToWin() {
+            currentPhrase = '';
+            document.getElementById('typeInput').value = '';
+            document.getElementById('phraseDisplay').textContent = 'Press Start to begin!';
+            document.getElementById('typeStartButton').style.display = 'block';
+        }
+
+        function startTypeGame() {
+            currentPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+            document.getElementById('phraseDisplay').textContent = currentPhrase;
+            document.getElementById('typeInput').value = '';
+            document.getElementById('typeInput').focus();
+            document.getElementById('typeStartButton').style.display = 'none';
+            typeGameStartTime = Date.now();
+
+            document.getElementById('typeInput').addEventListener('input', checkTyping);
+        }
+
+        function checkTyping(e) {
+            const typed = e.target.value;
+            if (typed === currentPhrase) {
+                const timeTaken = ((Date.now() - typeGameStartTime) / 1000).toFixed(2);
+                document.getElementById('phraseDisplay').textContent = `Completed in ${timeTaken} seconds!`;
+                document.getElementById('typeStartButton').style.display = 'block';
+                document.getElementById('typeStartButton').textContent = 'Try Another';
+                e.target.value = '';
+                createParticles(e.clientX, e.clientY, 20);
+            }
+        }
+
+        // Reaction Test Game Logic
+        let gameState = 'READY';
+        let startTime;
+        let timeoutId;
+        let bestTimes = [];
+
+        function resetReactionTest() {
+            gameState = 'READY';
+            document.getElementById('reactionBox').style.backgroundColor = '#4CAF50';
+            document.getElementById('reactionBox').textContent = 'Click to Start';
+        }
+
+        function handleReactionClick() {
+            const box = document.getElementById('reactionBox');
+            const result = document.getElementById('reactionResult');
+
+            switch(gameState) {
+                case 'READY':
+                    gameState = 'WAITING';
+                    box.style.backgroundColor = '#FF0000';
+                    box.textContent = 'Wait for green...';
+                    result.textContent = '';
+
+                    timeoutId = setTimeout(() => {
+                        if (gameState === 'WAITING') {
+                            gameState = 'GO';
+                            startTime = Date.now();
+                            box.style.backgroundColor = '#00FF00';
+                            box.textContent = 'CLICK NOW!';
+                        }
+                    }, Math.random() * 4000 + 1000);
+                    break;
+
+                case 'WAITING':
+                    clearTimeout(timeoutId);
+                    gameState = 'READY';
+                    box.style.backgroundColor = '#4CAF50';
+                    box.textContent = 'Too early! Click to try again';
+                    result.textContent = 'You clicked too soon! 😅';
+                    break;
+
+                case 'GO':
+                    const reactionTime = Date.now() - startTime;
+                    gameState = 'READY';
+                    box.style.backgroundColor = '#4CAF50';
+                    box.textContent = 'Click to try again';
+                    
+                    result.textContent = `Reaction time: ${reactionTime}ms ${getReactionRating(reactionTime)}`;
+                    updateBestTimes(reactionTime);
+                    
+                    createParticles(event.clientX, event.clientY, 15);
+                    break;
+            }
+        }
+
+        function getReactionRating(time) {
+            if (time < 150) return '🚀 INHUMAN!';
+            if (time < 200) return '⚡ Lightning Fast!';
+            if (time < 250) return '🏃 Super Quick!';
+            if (time < 300) return '😎 Very Good!';
+            if (time < 350) return '👍 Pretty Good';
+            if (time < 400) return '😊 Not Bad';
+            if (time < 500) return '🐢 A Bit Slow';
+            return '🦥 Need More Coffee';
+        }
+
+        function updateBestTimes(newTime) {
+            bestTimes.push(newTime);
+            bestTimes.sort((a, b) => a - b);
+            bestTimes = bestTimes.slice(0, 5);
+
+            const scoresList = document.getElementById('reactionScores');
+            scoresList.innerHTML = bestTimes
+                .map((time, index) => `
+                    <li class="text-xl">
+                        #${index + 1}: ${time}ms ${getReactionRating(time)}
+                    </li>
+                `).join('');
+
+            localStorage.setItem('reactionBestTimes', JSON.stringify(bestTimes));
+        }
+
+        // Initialize best times
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTimes = localStorage.getItem('reactionBestTimes');
+            if (savedTimes) {
+                bestTimes = JSON.parse(savedTimes);
+                const scoresList = document.getElementById('reactionScores');
+                scoresList.innerHTML = bestTimes
+                    .map((time, index) => `
+                        <li class="text-xl">
+                            #${index + 1}: ${time}ms ${getReactionRating(time)}
+                        </li>
+                    `).join('');
+            }
+        });
+
+        // Wish Maker Logic
+        const wishes = [
+            "Wish granted! But you'll regret it tomorrow",
+            "Error 404: Magic not found",
+            "The genie is currently in a meeting",
+            "Your wish has been forwarded to /dev/null",
+            "Loading wish... Please wait forever"
+        ];
+
+        function resetWishMaker() {
+            document.getElementById('wishResult').textContent = '';
+        }
+
+        function makeWish() {
+            const result = wishes[Math.random() * wishes.length];
+            document.getElementById('wishResult').textContent = result;
+            createParticles(event.clientX, event.clientY, 20);
+        }
+
+        // Decision Maker Logic
+        const decisions = ["YES!", "NO!", "MAYBE?", "ASK YOUR MOM", "DEFINITELY NOT", 
+                          "IN YOUR DREAMS", "WHY NOT?", "BETTER NOT"];
+
+        function resetDecisionMaker() {
+            document.getElementById('question').value = '';
+            document.getElementById('answer').textContent = '';
+        }
+
+        function getDecision() {
+            const question = document.getElementById('question').value;
+            if (question.trim() === '') {
+                document.getElementById('answer').textContent = "ASK SOMETHING FIRST, DUMMY!";
+                return;
+            }
+            const answer = decisions[Math.floor(Math.random() * decisions.length)];
+            document.getElementById('answer').textContent = answer;
+            createParticles(event.clientX, event.clientY, 15);
+        }
+
+        // Particle Effects
+        function createParticles(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                createParticle(x, y);
+            }
+        }
+
+        // Initialize the site
+        document.addEventListener('DOMContentLoaded', () => {
+            showGameHub();
+            updateClickWarHighScores();
+        });
+    </script>
+</body>
+</html> 
